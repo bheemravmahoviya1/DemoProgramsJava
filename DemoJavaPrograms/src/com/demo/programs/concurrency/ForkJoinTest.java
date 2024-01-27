@@ -8,7 +8,7 @@ public class ForkJoinTest {
 	public static void main(String[] args) {
 		   int nThreads = Runtime.getRuntime().availableProcessors();
 		  System.out.println("nThreads presents: "+nThreads);
-		  int [] inputData = new int[10];
+		  int [] inputData = new int[100];
 		  for(int i=0 ; i <= inputData.length-1; i++) {
 			  inputData[i]=i;
 		  }

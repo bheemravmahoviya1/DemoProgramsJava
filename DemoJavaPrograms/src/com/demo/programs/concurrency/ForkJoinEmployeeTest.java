@@ -15,9 +15,9 @@ import com.demo.programs.collection.source.Employee;
 public class ForkJoinEmployeeTest {
 	public static void main(String[] args) {
 		//Filter without fork join
-		//filterWithoutFormJoin();
+		filterWithoutFormJoin();
 		
-		filterWithFormJoin();
+		//filterWithFormJoin();
 		
 	}
 	
@@ -65,7 +65,7 @@ public class ForkJoinEmployeeTest {
 	  * */
 	 public List<Employee> employeeFilterByLocation(List<Employee>  employees,List<String> locations){
 		 System.out.println("employeeFilterByLocation(-) start ");
-		List<Employee> filteredEmp = employees.stream().filter(employee -> {
+		List<Employee> filteredEmp = employees.parallelStream().filter(employee -> {
 			System.out.println("employeeLocation: "+employee.getLocation()+", Thread name : "+Thread.currentThread().getName());
 			return locations.contains(employee.getLocation());
 		}).collect(Collectors.toList());
@@ -78,7 +78,7 @@ public class ForkJoinEmployeeTest {
 	  * */
 	 public List<Employee> employeeFilterBySalary(List<Employee>  employees,double minSalary,double maxSalary){
 		 System.out.println("employeeFilterByLocation(-) start ");
-		List<Employee> filteredEmp = employees.stream().filter(employee -> {
+		List<Employee> filteredEmp = employees.parallelStream().filter(employee -> {
 			System.out.println("employeeLocation: "+employee.getSalary()+ ", Thread name : "+Thread.currentThread().getName());
 			return employee.getSalary()>= minSalary && employee.getSalary() < maxSalary;
 		}).collect(Collectors.toList());

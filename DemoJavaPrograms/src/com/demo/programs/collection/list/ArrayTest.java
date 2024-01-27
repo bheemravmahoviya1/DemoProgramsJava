@@ -1,4 +1,4 @@
-package com.demo.programs.collection;
+package com.demo.programs.collection.list;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
