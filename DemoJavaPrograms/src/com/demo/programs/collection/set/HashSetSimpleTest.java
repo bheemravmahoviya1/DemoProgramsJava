@@ -1,30 +1,16 @@
 package com.demo.programs.collection.set;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
-
 import com.demo.programs.collection.source.DataSourceBooks;
 
 public class HashSetSimpleTest {
-	private static final Object PRESENT = new Object();
-	private static final String DUMMY = "I am dummy.";
-	private static final String DUMMY1 = "I am dummy1.";
-	private static final String DUMMY2 = "I am dummy2.";
-	private static final String I_AM_NULL = null;
 	public static void main(String[] args) {
-		HashMap<String,Object>  map=new HashMap <>();
-		map.put(DataSourceBooks.BOOK_ENGLISH, DUMMY);
-		map.put(DataSourceBooks.BOOK_HINDI, I_AM_NULL);
-		map.put(DataSourceBooks.BOOK_MATH, DUMMY);
-		System.out.println("HashMap ----- map: "+map);
-		System.out.println("HashMap remove BOOK_MATH when present  "+map.remove(DataSourceBooks.BOOK_HINDI));
-		System.out.println("HashMap remove BOOK_MATH when not present  "+map.remove(DataSourceBooks.BOOK_HINDI));
-		System.out.println("HashMap ----- map: "+map);
-		
 		HashSet<String>  books=new HashSet <>();
-		 //addOperation(books); //To add operation test
-		//removeOperation(books); //To remove operation test
+		addOperation(books); //To add operation test
+		removeOperation(books); //To remove operation test
+		
+		System.out.println("HashSetSimpleTest    Is BOOK_ENGLISH contains: "+books.contains(DataSourceBooks.BOOK_ENGLISH));
+
 		
 	}
 	
@@ -58,6 +44,7 @@ public class HashSetSimpleTest {
 		System.out.println("HashSetSimpleTest   Hash element: "+books);
 		System.out.println("HashSetSimpleTest    remove element when BOOK_ENGLISH present: "+books.remove(DataSourceBooks.BOOK_HINDI));
 		System.out.println("HashSetSimpleTest    remove element when BOOK_ENGLISH not present: "+books.remove(DataSourceBooks.BOOK_HINDI));
+		System.out.println("HashSetSimpleTest    Is BOOK_ENGLISH contains: "+books.removeIf( book -> book.equals(DataSourceBooks.BOOK_ENGLISH)));
 		System.out.println("HashSetSimpleTest   Added: "+books);
 		System.out.println("HashSetSimpleTest ----- (Add)-----  END");
 	}
