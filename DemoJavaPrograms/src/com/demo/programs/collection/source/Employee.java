@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.demo.programs.collection.source.ConstantEmp.Gender;
 
-public class Employee {
+public class Employee implements Comparable<Employee>{
 	
 	private int empId;
 	private String fullName;
@@ -75,4 +75,12 @@ public class Employee {
 		return "Employee [empId=" + empId + ", fullName=" + fullName + ", location=" + location + ", salary=" + salary
 				+ ", dob=" + dob + ", gender=" + gender + ", skils=" + skils + "]";
 	}
+
+
+	
+	 public int compareTo(Employee employee) {
+		 
+		 return (this.empId < employee.empId) ? -1 : ((this.empId == employee.empId) ? 0 : 1);  
+	 }
+	 
 }
