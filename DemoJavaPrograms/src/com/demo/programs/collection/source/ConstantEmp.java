@@ -37,6 +37,7 @@ public interface ConstantEmp {
 		  String TYPESCRIPT ="TYPE SCRIPT";
 		  String POSTGRES ="POSTGRES";
 		  String MYSQL ="MYSQL";
+		  String AI ="Artificial Intelligent";
 	  }
 	  
 	  
