@@ -39,7 +39,31 @@ public interface ConstantEmp {
 		  String MYSQL ="MYSQL";
 		  String AI ="Artificial Intelligent";
 	  }
-	  
+	  /*
+	  enum Skils{
+		   JAVA,
+		   SPRING,
+		   SPRING_BOOT,
+		   MICROSERVICES,
+		   ORACLE,
+		   DOCKER,
+		   KUBERNETES ,
+		   JENKINS ,
+		   AWS,
+		   CLOUD ,
+		   ANGULAR,
+		   CSS,
+		   BOOTSTRAP ,
+		   HTML,
+		   TYPESCRIPT ,
+		   POSTGRES ,
+		   MYSQL ,
+		   AI ;
+		  
+		  public List<Skils> getSkips() {
+			  return Arrays.asList(this.values());
+		  }
+	  }*/
 	  
 	  enum Gender{
 		  MALE,
