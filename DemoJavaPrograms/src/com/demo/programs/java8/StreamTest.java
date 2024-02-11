@@ -1,12 +1,14 @@
 package com.demo.programs.java8;
 
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -32,7 +34,108 @@ public class StreamTest {
 		//findFirstElement();
 		//findAnyElement();
 		//collectElements();
-		System.out.print(Integer.compare(Integer.MAX_VALUE +1, -1) );
+		//distinctData();
+		//naturalSortingData();
+		//minData();
+		//maxData();
+		//countData();
+		//limitData();
+		//skipData();
+		//peekData();
+		reduceData();
+		
+	}
+	
+	private static void reduceData() {
+		Function<Employee,String>  getFullNameFunction = emp -> emp.getFullName(); 
+		getEmpList().stream().map(getFullNameFunction).reduce((participationValue,otherValue ) -> participationValue+" "+ otherValue)
+		.ifPresentOrElse(System.out::println, () ->  System.out.println("No value is present for reduce."));;
+	}
+	
+	
+	/**
+	 * Stream.peek() method can be useful in visualizing how the stream operations behave 
+	 * and understanding the implications and interactions of complex intermediate stream operations.
+	 * 
+	 * */
+	private static void peekData() {
+		getEmpList().stream().peek(System.out::println).collect(Collectors.toList());
+	}
+	
+	
+	private static void skipData() {
+		Consumer<Employee> empPrint = emp -> System.out.println(emp.getFullName()); 
+		printMsg("printing employee before skip");
+		getEmpList().stream().forEach(empPrint);
+		printMsg("printing employee after skip 2");
+		getEmpList().stream().skip(2).forEach(empPrint);
+	}
+	
+	private static void limitData() {
+		Consumer<Employee> empPrint = emp -> System.out.println(emp.getFullName()); 
+		printMsg("printing employee before limit");
+		getEmpList().stream().forEach(empPrint);
+		printMsg("printing employee after limit 2");
+		getEmpList().stream().limit(2).forEach(empPrint);
+	}
+
+	private static void countData() {
+		System.out.println("Total emp count: "+getEmpList().stream().count());
+	}
+	
+	
+	private static void maxData() {
+		Comparator<Employee>  employeeByIdComparator = Comparator.comparing(Employee::getEmpId);
+		getEmpList().stream().max(employeeByIdComparator).ifPresentOrElse(emp ->{
+			System.out.println("Max employee found by id: "+emp);
+		}, () -> {
+			System.out.println("No max found data.");
+		});
+	}
+	
+	private static void minData() {
+		Comparator<Employee>  employeeByIdComparator = Comparator.comparing(Employee::getEmpId);
+		getEmpList().stream().min(employeeByIdComparator).ifPresentOrElse(emp ->{
+			System.out.println("Min employee found by id: "+emp);
+		}, () -> {
+			System.out.println("No min found data.");
+		});
+	}
+	
+	private static void naturalSortingData() {
+		Consumer<Employee>  employeePrintConsumer = emp -> System.out.println(emp);
+		printMsg("Printing employee before sort");
+		getEmpList().stream().forEach(employeePrintConsumer);
+		printMsg("Printing employee after natural sorting by emp id");
+		getEmpList().stream().sorted().forEach(employeePrintConsumer);
+		printMsg("Printing employee after custom sorting by emp name");
+		Comparator<Employee>  compareByName= Comparator.comparing(Employee::getFullName);
+		getEmpList().stream().sorted(compareByName).forEach(employeePrintConsumer);
+		printMsg("Printing employee after custom sorting by emp skills");
+		//Need to sort the list of employee by his/her skills which having list; 
+		Function<Employee, Employee>  formattingSkillFunction = emp -> {
+			List<String> skills = emp.getSkils().stream().sorted().collect(Collectors.toList());
+			emp.setSkils(skills);
+			return emp;
+		};
+		Comparator<Employee> compareBySkills = (emp1,emp2) -> {
+			String emp1Skills = emp1.getSkils().stream().reduce((participationingValue,otherValue) -> participationingValue+otherValue).get();
+			String emp2Skills = emp2.getSkils().stream().reduce((participationingValue,otherValue) -> participationingValue+otherValue).get();
+			return emp1Skills.compareTo(emp2Skills);
+		};
+		getEmpList().stream().map(formattingSkillFunction).sorted(compareBySkills).forEach(employeePrintConsumer);
+	}
+	
+	
+	private static void distinctData() {
+		List<Employee> employees = new ArrayList<>();
+		employees.addAll(getEmpList());
+		employees.addAll(getEmpList());
+		Consumer<Employee>  employeePrintConsumer = emp -> System.out.println(emp.getFullName());
+		System.out.println("Printing employee name before distinct");
+		employees.stream().forEach(employeePrintConsumer);
+		System.out.println("Printing employee name after distinct");
+		employees.stream().distinct().forEach(employeePrintConsumer);
 	}
 	
 	
@@ -235,5 +338,11 @@ public class StreamTest {
 	
 	private static List<Employee> getEmpList(){
 		return DataSourceEmployee.getEmployeeList();
+	}
+	
+	private static void printMsg(String msg) {
+		System.out.println();
+		System.out.println("------------------------- "+msg+" -------------------------");
+		System.out.println();
 	}
 }

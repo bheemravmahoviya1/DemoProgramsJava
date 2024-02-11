@@ -2,6 +2,8 @@ package com.demo.programs.collection.source;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import com.demo.programs.collection.source.ConstantEmp.Gender;
 
@@ -14,6 +16,11 @@ public class Employee implements Comparable<Employee>{
 	private LocalDate dob;
 	private Gender gender;
 	private List<String> skils;
+	private Optional<String> favourite = Optional.ofNullable("Singing");
+	
+
+
+
 	public Employee(int empId, String fullName, String location, double salary, LocalDate dob,Gender gender,
 			List<String> skils) {
 		this.empId = empId;
@@ -26,6 +33,38 @@ public class Employee implements Comparable<Employee>{
 	}
 	
 	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(dob, empId, fullName, gender, location, salary, skils);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		return Objects.equals(dob, other.dob) && empId == other.empId && Objects.equals(fullName, other.fullName)
+				&& gender == other.gender && Objects.equals(location, other.location)
+				&& Double.doubleToLongBits(salary) == Double.doubleToLongBits(other.salary)
+				&& Objects.equals(skils, other.skils);
+	}
+
+	public Optional<String> getFavourite() {
+		return favourite;
+	}
+
+
+
+	public void setFavourite(Optional<String> favourite) {
+		this.favourite = favourite;
+	}
 
 	public int getEmpId() {
 		return empId;

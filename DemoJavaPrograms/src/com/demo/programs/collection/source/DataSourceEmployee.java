@@ -3,6 +3,7 @@ package com.demo.programs.collection.source;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class DataSourceEmployee {
 	
@@ -68,7 +69,27 @@ public class DataSourceEmployee {
 		
 		return employees;
 	}
+	
+	
+	
+	public static List<Employee> getEmployeeEmptyList(){ 
+		return new ArrayList<>();
+	}
 
+	public static Optional<Employee>  getEmployeeOptionalEmptyEntity(){
+		return Optional.empty();
+	}
+	
+	public static Optional<Employee>  getEmployeeOptionalEntity(){
+		return Optional.of(DataSourceEmployee.getEmployeeList().get(0));
+	}
+	
+	public static Optional<List<Employee>>  getEmployeeOptionalEntityList(){
+		return Optional.of(DataSourceEmployee.getEmployeeList());
+	}
+	public static Optional<List<Employee>>  getEmployeeOptionalEmptyEntityList(){
+		return Optional.empty();
+	}
 }
 
 
