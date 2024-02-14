@@ -1,5 +1,6 @@
 package com.demo.programs.collection.source;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -7,7 +8,7 @@ import java.util.Optional;
 
 import com.demo.programs.collection.source.ConstantEmp.Gender;
 
-public class Employee implements Comparable<Employee>{
+public class Employee implements Comparable<Employee>,Serializable{
 	
 	private int empId;
 	private String fullName;
